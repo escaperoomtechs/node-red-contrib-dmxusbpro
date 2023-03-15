@@ -21,7 +21,7 @@ function DMX(devicePath, currentUniverse) {
 		'stopbits': 2,
 		'parity': 'none'
 	}, function(err) {
-		if(err != null){
+		if(err !== null){
 			console.log("dmx enttec driver device error:" + err);
 		}
 	});
@@ -44,7 +44,7 @@ DMX.prototype.send_universe = function() {
 }
 
 DMX.prototype.close = function(cb) {
-	console.log("closing DMX USB PRO device... " + cb);
+	console.log("closing DMX USB PRO device... ");
 	this.dev.close(cb)
 }
 
