@@ -1,7 +1,7 @@
 {
-  "name": "node-red-contrib-dmxusbpro",
-  "version": "1.0.2",
-  "description": "node-red driver for Enntec DMX USB Pro - adapted and simplified from node-dmx package https://www.npmjs.com/package/dmx requires node-serialport module",
+  "name": "@escaperoomtechs/node-red-contrib-dmxusbpro",
+  "version": "2.0",
+  "description": "node-red driver for Enttec DMX USB Pro - adapted from node-red-contrib-dmxusbpro.  Requires node-serialport module.",
   "main": "dmxusbpro.js",
   "dependencies"  : {
         "serialport"   : "^10.3.0"
@@ -9,10 +9,10 @@
   "keywords": [ "node-red" ],
   "repository" : {
         "type":"git",
-        "url":"https://github.com/blechdom/node-red-contrib-dmxusbpro.git"
+        "url":"https://github.com/escaperoomtechs/node-red-contrib-dmxusbpro.git"
     },
-  "author": "Kristin Grace Galvin",
-  "email": "blechdom@gmail.com",
+  "author": "Escape Room Techs",
+  "email": "escape@escaperoomtechs.com",
   "license": "ISC",
   "node-red": {
         "nodes": {
