@@ -1,6 +1,6 @@
 "use strict"
 
-var SerialPort = require("serialport")
+const { SerialPort } = require("serialport")
 
 var	ENTTEC_PRO_DMX_STARTCODE = 0x00,
 	ENTTEC_PRO_START_OF_MSG  = 0x7e,
@@ -8,12 +8,14 @@ var	ENTTEC_PRO_DMX_STARTCODE = 0x00,
 	ENTTEC_PRO_SEND_DMX_RQ   = 0x06,
 	ENTTEC_PRO_RECV_DMX_PKT  = 0x05;
 
-function DMX(device_id, current_universe) {
+function DMX(devicePath, currentUniverse) {
 	console.log("initalizing dmx usb pro...");
 	var self = this
-	this.universe = current_universe;
+	this.universe = currentUniverse;
+	this.devicePath = devicePath;
 
-	this.dev = new SerialPort(device_id, {
+	this.dev = new SerialPort({
+		path: devicePath,
 		'baudRate': 250000,
 		'databits': 8,
 		'stopbits': 2,
@@ -49,8 +51,6 @@ DMX.prototype.close = function(cb) {
 DMX.prototype.update = function(u, offset) {
 	for(var c in u) {
 		this.universe[(parseFloat(c)+parseFloat(offset)-parseFloat(1))] = u[c];
-		//this.universe[(parseFloat(c)+parseFloat(offset)-parseFloat(2))] = u[c];
-		//console.log("c: " + c + " u " + JSON.stringify(u) + " u[c] " + u[c]);
 	}
 	this.send_universe()
 }

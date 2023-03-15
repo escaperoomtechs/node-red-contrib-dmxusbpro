@@ -8,7 +8,7 @@ module.exports = function(RED) {
         var node = this;
         this.port = n.port || "COM3";
         this.DMX_offset = n.DMX_starting_address || 1;
-        var current_universe_buffer = new Buffer(512);
+        var current_universe_buffer = Buffer.alloc(512);
         console.log("this in DMXout: " + JSON.stringify(this));
         var current_universe =  [];
         for (var i = 0; i<512; i++){
@@ -16,17 +16,20 @@ module.exports = function(RED) {
         }
         current_universe_buffer = Buffer(current_universe);
         var dmx_usb_pro = new DMX(this.port, current_universe_buffer);
+        
         this.on("input",function(msg) {
             current_universe = msg.payload;
-            dmx_usb_pro.update(current_universe, this.DMX_offset);
-            node.send(current_universe);               
+            dmx_usb_pro.update(current_universe, msg.offset ?? this.DMX_offset);
+            node.send(current_universe);            
         });
+
         this.on('close', function(done) {
             dmx_usb_pro.close(function (err) {
-                console.log('dmxusbpro closed', err);
+                console.log('Enttec DMX USB Pro connection closed.', err);
                 done();
             });
         });
     }
+
     RED.nodes.registerType("dmxusbpro",DMXout);
 }
