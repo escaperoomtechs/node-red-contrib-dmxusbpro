@@ -6,7 +6,7 @@ module.exports = function(RED) {
     function DMXout(n) {
         RED.nodes.createNode(this,n);
         var node = this;
-        this.port = n.port || "COM3";
+        this.port = n.port || "/dev/ttyUSB0";
         this.DMX_offset = n.DMX_starting_address || 1;
         var current_universe_buffer = Buffer.alloc(512);
         var current_universe =  [];
@@ -26,7 +26,7 @@ module.exports = function(RED) {
             
             else {
                 index = parseInt(msg.topic);
-                value = parseInt(msg.value);
+                value = parseInt(msg.payload);
 
                 if (index >= 0 && index < 512)
                 {
