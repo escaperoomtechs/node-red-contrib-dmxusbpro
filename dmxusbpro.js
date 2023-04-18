@@ -18,9 +18,26 @@ module.exports = function(RED) {
         var dmx_usb_pro = new DMX(this.port, current_universe_buffer);
 
         this.on("input",function(msg) {
-            current_universe = msg.payload;
-            dmx_usb_pro.update(current_universe, msg.offset ?? this.DMX_offset);
-            node.send(current_universe);            
+            if (Array.isArray(msg.payload)) {
+                current_universe = msg.payload;
+                dmx_usb_pro.update(current_universe, msg.offset ?? this.DMX_offset);
+                node.send(current_universe);
+            }
+            
+            else {
+                index = parseInt(msg.topic);
+                value = parseInt(msg.value);
+
+                if (index >= 0 && index < 512)
+                {
+                    if (value >= 0 && value <= 255)
+                    {
+                        current_universe[index] = value;
+                    }
+                }
+                dmx_usb_pro.update(current_universe, msg.offset ?? this.DMX_offset);
+                node.send(current_universe);
+            }
         });
 
         this.on('close', function(done) {
