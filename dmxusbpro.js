@@ -25,8 +25,8 @@ module.exports = function(RED) {
             }
             
             else {
-                index = parseInt(msg.topic);
-                value = parseInt(msg.payload);
+                let index = parseInt(msg.topic);
+               let  value = parseInt(msg.payload);
 
                 if (index >= 0 && index < 512)
                 {
