@@ -1,6 +1,6 @@
 {
   "name": "@escaperoomtechs/node-red-contrib-dmxusbpro",
-  "version": "2.0",
+  "version": "2.0.0",
   "description": "node-red driver for Enttec DMX USB Pro - adapted from node-red-contrib-dmxusbpro.  Requires node-serialport module.",
   "main": "dmxusbpro.js",
   "dependencies"  : {
